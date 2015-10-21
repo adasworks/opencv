@@ -883,11 +883,11 @@ function(ocv_download)
     if(NOT EXISTS "${DOWNLOAD_TARGET_DIR}")
       file(MAKE_DIRECTORY ${DOWNLOAD_TARGET_DIR})
     endif()
-    message(STATUS "Downloading ${DL_PACKAGE}...")
+    message(STATUS "Downloading ${__url}${DL_PACKAGE}...")
     #message(STATUS "    ${__url}${DL_PACKAGE}")
     file(DOWNLOAD "${__url}${DL_PACKAGE}" "${DOWNLOAD_TARGET}"
          TIMEOUT 600 STATUS __status
-         EXPECTED_MD5 ${DL_HASH})
+         EXPECTED_MD5 ${DL_HASH} SHOW_PROGRESS)
     if(NOT __status EQUAL 0)
       message(FATAL_ERROR "Failed to download ${DL_PACKAGE}. Status=${__status}")
     else()

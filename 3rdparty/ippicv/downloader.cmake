@@ -69,10 +69,11 @@ function(_icv_downloader)
     endif()
 
     file(MAKE_DIRECTORY ${OPENCV_ICV_PACKAGE_ARCHIVE_DIR})
-    message(STATUS "ICV: Downloading ${OPENCV_ICV_PACKAGE_NAME}...")
+    message(STATUS "ICV: Downloading ${OPENCV_ICV_URL}/${OPENCV_ICV_PACKAGE_NAME}...")
     file(DOWNLOAD "${OPENCV_ICV_URL}/${OPENCV_ICV_PACKAGE_NAME}" "${OPENCV_ICV_PACKAGE_ARCHIVE}"
          TIMEOUT 600 STATUS __status
-         EXPECTED_MD5 ${OPENCV_ICV_PACKAGE_HASH})
+         EXPECTED_MD5 ${OPENCV_ICV_PACKAGE_HASH}
+         SHOW_PROGRESS)
     if(NOT __status EQUAL 0)
       message(FATAL_ERROR "ICV: Failed to download ICV package: ${OPENCV_ICV_PACKAGE_NAME}. Status=${__status}")
     else()
