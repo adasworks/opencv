@@ -1194,7 +1194,9 @@ status("  cvconfig.h is in:" "${OPENCV_CONFIG_FILE_INCLUDE_DIR}")
 status("-----------------------------------------------------------------")
 status("")
 
+message(STATUS "####1")
 ocv_finalize_status()
+message(STATUS "####2")
 
 # ----------------------------------------------------------------------------
 # Warn in the case of in-source build
@@ -1202,9 +1204,11 @@ ocv_finalize_status()
 if("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
   message(WARNING "The source directory is the same as binary directory. \"make clean\" may damage the source tree")
 endif()
+message(STATUS "####3")
 
 # ----------------------------------------------------------------------------
 # CPack stuff
 # ----------------------------------------------------------------------------
 
 include(cmake/OpenCVPackaging.cmake)
+message(STATUS "####4")
