@@ -898,7 +898,7 @@ function(ocv_download)
            TIMEOUT 600 STATUS __status
            EXPECTED_MD5 ${DL_HASH} SHOW_PROGRESS)
       if(NOT __status EQUAL 0)
-        message(FATAL_ERROR "[attempt ${iii}]: Failed to download ${DL_PACKAGE}. Status=${__status}")
+        message(STATUS "[attempt ${iii}]: Failed to download ${DL_PACKAGE}. Status=${__status}")
       else()
         break()
       endif()
