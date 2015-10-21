@@ -885,6 +885,13 @@ function(ocv_download)
     endif()
     message(STATUS "Downloading ${__url}${DL_PACKAGE}...")
     #message(STATUS "    ${__url}${DL_PACKAGE}")
+
+    message(STATUS "debug download...")
+    file(DOWNLOAD https://raw.githubusercontent.com/Itseez/opencv_3rdparty/8aeefc4efe3215de89d8c7e114ae6f7a6091b8eb/ffmpeg/opencv_ffmpeg.dll
+      ${CMAKE_CURRENT_BINARY_DIR}/ooo.dll TIMEOUT 600
+      STATUS __status EXPECTED_MD5 89c783eee1c47bfc733f08334ec2e31c SHOW_PROGRESS)
+    message(STATUS "__status: ${__status}")
+
     file(DOWNLOAD "${__url}${DL_PACKAGE}" "${DOWNLOAD_TARGET}"
          TIMEOUT 600 STATUS __status
          EXPECTED_MD5 ${DL_HASH} SHOW_PROGRESS)
