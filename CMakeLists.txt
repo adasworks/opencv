@@ -462,6 +462,32 @@ ocv_include_directories(${OPENCV_CONFIG_FILE_INCLUDE_DIR})
 #  Path for additional modules
 # ----------------------------------------------------------------------------
 set(OPENCV_EXTRA_MODULES_PATH "" CACHE PATH "Where to look for additional OpenCV modules")
+find_package(Git)
+if(GIT_FOUND)
+  message("Git found: ${GIT_EXECUTABLE}")
+  message("CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
+  set(OPENCV_CONTRIB_PATH ${CMAKE_CURRENT_BINARY_DIR}/opencv-contrib)
+  message("OPENCV_CONTRIB_PATH: ${OPENCV_CONTRIB_PATH}")
+  set(COMMAND_TO_EXECUTE git clone https://github.com/opencv/opencv_contrib.git ${OPENCV_CONTRIB_PATH})
+  execute_process(COMMAND ${COMMAND_TO_EXECUTE} RESULT_VARIABLE rv)
+  if(rv)
+    message("Error: Failed to clone opencv-contrib")
+  else()
+    message("Cloned opencv-contrib")
+    set(OPENCV_EXTRA_MODULES_PATH ${OPENCV_CONTRIB_PATH}/modules)
+    #set(OPENCV_CONTRIB_GIT_TAG 3.1.0)  # This should be done from the opencv-contrib repo's folder
+    #set(COMMAND_TO_EXECUTE git checkout ${OPENCV_CONTRIB_GIT_TAG})
+    #execute_process(COMMAND ${COMMAND_TO_EXECUTE} RESULT_VARIABLE rv)
+    #if(rv)
+    #  message("Error: Failed to checkout opencv_contrib tag ${OPENCV_CONTRIB_GIT_TAG}")
+    #else()
+    #  message("Checked out opencv-contrib tag ${OPENCV_CONTRIB_GIT_TAG}")
+    #  set(OPENCV_EXTRA_MODULES_PATH ${OPENCV_CONTRIB_PATH}/modules)
+    #endif()
+  endif()
+else()
+  message("Error: git not found")
+endif()
 
 # ----------------------------------------------------------------------------
 #  Autodetect if we are in a GIT repository
